@@ -106,19 +106,32 @@ X_all <- rbindlist(list(X_test_clean, X_train_clean), use.names = TRUE)
 # str_count(body_acc_x_test_1space[1], " ")
 
 ########## reading in the feature.txt file to have the correct labels
-features <- data.table(read.table("features.txt", sep = " ", header = FALSE, col.names = c("index", "features"), as.is = 2))
+features <- read.table("features.txt", sep = " ", header = FALSE, col.names = c("index", "features"), as.is = 2)
 
-library(dplyr)
-features <- select(features, features)
+features <- features$features
 
 # remove all parentheses
-features$features <- gsub("(", "", fixed = TRUE, features$features)
-features$features <- gsub(")", "", fixed = TRUE, features$features)
+features <- gsub("(", "", fixed = TRUE, features)
+features <- gsub(")", "", fixed = TRUE, features)
 # replace "-" dash symbol and "," commas by underscore _
-features$features <- gsub("-", "_", fixed = TRUE, features$features)
-features$features <- gsub(",", "_", fixed = TRUE, features$features)
+features <- gsub("-", "_", fixed = TRUE, features)
+features <- gsub(",", "_", fixed = TRUE, features)
 
+### rename variables of X_all
+### now they have meaningful description
+setnames(X_all, names(X_all), features)
+
+# sum(grepl("mean", features) | grepl("Mean", features) | grepl("std", features))  # result = 86
+
+# create a chr vector with all the column names to be selected
+vars <- features[grepl("mean", features) | grepl("Mean", features) | grepl("std", features)]
+
+library(dplyr)
+# head(select(X_all, one_of(vars)))
+# str(select(X_all, one_of(vars)))
+
+X_all_select <- select(X_all, one_of(vars))
 
 ###  NOT RUN  YET
 ####### rbind all the "_all" data.tables with the subj_label_category table
-clean_data <- cbind(subj_label_category, X_all)
+clean_data <- cbind(subj_label_category, X_all_select)
