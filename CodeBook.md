@@ -21,4 +21,4 @@ The data was collected from the accelerometers from the Samsung Galaxy S smartph
 
 1. Since all files containing actual data have distinct names, I manually put them all in a directory called dataset
     + that is easier to handle in the R console
-2. I read in each file individually with readLines() and immediately transformed them as data.table
+2. I read in each file individually with readLines()
