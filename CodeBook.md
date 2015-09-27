@@ -34,9 +34,9 @@ For each record it is provided:
 However for this assignment, we did not use the triaxial acceleration from the accelerometer, the estimated body acceleration and the triaxial Angular velocity from the gyroscope.
 
 ## Code Book
+There are 2 clean data files:
 
-1. There are 2 clean data files: The "clean_data" file has 89 variables.
-
+1.The "clean_data" file has 89 variables.
 The first 3 are:
 
 * subject: this is the human individual tagged by  a number who performed the activities from 1 to 30. Individuals 2, 4, 9, 10, 12, 13, 18, 20, 24 performed a test, while the other 21 individuals performed a training.
@@ -96,4 +96,5 @@ The following 86 are all the variables of the X data set that had either "Mean",
 * fBodyAcc_meanFreq_Y
 * fBodyAcc_meanFreq_Z
 
-2. The "   " file     
+2. The summary_clean data.table is showing the average of each of the 86 variables shown above, grouped by activity and subject
+    + hence it is a 180 x 88 data.table

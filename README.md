@@ -47,4 +47,13 @@ Description of the file: this explains how all of the scripts work and how they 
     + I created a "vars" character vector of those variables containing "mean", "Mean" or "std" only. "vars" has 86 values
     + I used "vars" to select (tidyr library) only those columns in the X_all data.table
 
-## The result is the clean_data data.table dimension 10299 x 89
+### The result is the clean_data data.table dimension 10299 x 89
+
+## Next step: summarize by activity and subject and get the mean of all 86 variables
+
+1. First I removed the column "category" from the clean_data set
+2. set I grouped this new data.table by "activity" and "subject"
+3. Then I applied the summarise_each(funs(mean)) and save under the final data set
+    + 30 subjects x 6 activities = 180 rows
+
+### The result is the summary_clean data.table dimension 180 x 88

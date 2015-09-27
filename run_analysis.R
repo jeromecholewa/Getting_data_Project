@@ -63,6 +63,7 @@ subj_label_category$activity[subj_label_category$lab_act == 5] <- "STANDING"
 subj_label_category$activity[subj_label_category$lab_act == 6] <- "LAYING"
 library(dplyr)
 subj_label_category <- subj_label_category %>% select(subject, category, activity)
+subj_label_category$activity <- as.factor(subj_label_category$activity)
 ###########################################
 
 ############################
@@ -132,6 +133,11 @@ library(dplyr)
 
 X_all_select <- select(X_all, one_of(vars))
 
-###  NOT RUN  YET
 ####### rbind all the "_all" data.tables with the subj_label_category table
 clean_data <- cbind(subj_label_category, X_all_select)
+
+#######  create a new data.table for the average of all values by activity and by subject
+clean_data2  <- select(clean_data, -category)
+clean_data2  <- group_by(clean_data2, activity, subject)
+summary_clean <-  clean_data2 %>% summarise_each(funs(mean))
+
